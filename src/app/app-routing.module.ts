@@ -1,10 +1,28 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { NgModule } from '@angular/core';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: 'supplies',
+        loadChildren: () => import('./modules/supplies/supplies.module').then(mod => mod.SuppliesModule)
+      }
+    ]
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./modules/authenticate/authenticate.module').then(mod => mod.AuthenticateModule)
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
