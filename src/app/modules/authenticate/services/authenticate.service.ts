@@ -18,11 +18,8 @@ export class AuthenticateService {
   ) { }
 
   login(loginInfo: LoginInfo): Observable<any> {
-
     const json = loginInfo;
-
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
     const loginUrl = `${environment.apiAuthUrl}/${this.authenticateUrl}/login`;
 
     return this.http.post<any>(loginUrl, loginInfo, { headers });

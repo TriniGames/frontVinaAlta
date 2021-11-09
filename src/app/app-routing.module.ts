@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'main',
     component: MainLayoutComponent,
     children: [
       {
@@ -17,7 +17,8 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./modules/authenticate/authenticate.module').then(mod => mod.AuthenticateModule)
-  }
+  },
+  { path: '**', redirectTo: 'auth' },
 ];
 
 @NgModule({

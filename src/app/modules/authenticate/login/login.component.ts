@@ -3,8 +3,9 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Store } from '@ngrx/store';
 import { regEx } from 'src/app/shared/constants';
 import { LoginInfo } from 'src/app/shared/models/authenticate/login-info.model';
-import { login } from '../store/authenticate.actions';
+import { login, storeUserInformation } from '../store/authenticate.actions';
 import * as fromAuthenticate from '../store/authenticate.reducer';
+import { selectUserInformation } from '../store/authenticate.selectors';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.store.select(selectUserInformation).subscribe(ui => console.log({ ui }))
   }
 
   initForm(): void {

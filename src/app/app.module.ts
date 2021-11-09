@@ -12,7 +12,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { MainLayoutModule } from './layouts/main-layout/main-layout.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { NgModule } from '@angular/core';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { StoreModule } from '@ngrx/store';
@@ -21,6 +23,7 @@ import { StoreModule } from '@ngrx/store';
   declarations: [
     AppComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -32,7 +35,9 @@ import { StoreModule } from '@ngrx/store';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatExpansionModule,
-    MainLayoutModule
+    MainLayoutModule,
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

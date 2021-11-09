@@ -1,17 +1,25 @@
 import { RouterModule, Routes } from '@angular/router';
-
-import { CajasComponent } from './cajas/cajas.component';
+import { MainSupliesComponent } from './main-suplies/main-suplies.component';
 import { DamajuanasComponent } from './damajuanas/damajuanas.component';
 import { NgModule } from '@angular/core';
+import { CreateEditMainSupplyComponent } from './create-edit-main-supply/create-edit-main-supply.component';
 
 const routes: Routes = [
+  // {
+  //   path: 'supplies/*',
+  //   redirectTo: 'cajas'
+  // },
   {
-    path: 'cajas',
-    component: CajasComponent
+    path: 'mainSuplies',
+    component: MainSupliesComponent
   },
   {
     path: 'damajuanas',
     component: DamajuanasComponent
+  },
+  {
+    path: 'createEdit',
+    component: CreateEditMainSupplyComponent
   }
 ];
 

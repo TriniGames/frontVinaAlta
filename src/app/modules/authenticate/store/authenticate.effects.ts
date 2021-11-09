@@ -24,7 +24,7 @@ export class AuthenticateEffects {
                 .pipe(
                     map((userInformation: UserInformation) => {
                         if (userInformation && userInformation.jwt) {
-                            this.router.navigate(['/']);
+                            this.router.navigate(['/main']);
                         }
 
                         return storeUserInformation({ userInformation });
