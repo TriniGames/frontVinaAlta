@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DamajuanasComponent } from './damajuanas.component';
+import { CreateEditSupplyComponent } from './create-edit-supply.component';
 
-describe('DamajuanasComponent', () => {
-  let component: DamajuanasComponent;
-  let fixture: ComponentFixture<DamajuanasComponent>;
+describe('CreateEditSupplyComponent', () => {
+  let component: CreateEditSupplyComponent;
+  let fixture: ComponentFixture<CreateEditSupplyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DamajuanasComponent ]
+      declarations: [ CreateEditSupplyComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DamajuanasComponent);
+    fixture = TestBed.createComponent(CreateEditSupplyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

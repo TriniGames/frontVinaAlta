@@ -1,30 +1,31 @@
 import { RouterModule, Routes } from '@angular/router';
-import { MainSupliesComponent } from './main-suplies/main-suplies.component';
-import { DamajuanasComponent } from './damajuanas/damajuanas.component';
 import { NgModule } from '@angular/core';
-import { CreateEditMainSupplyComponent } from './create-edit-main-supply/create-edit-main-supply.component';
+import { ProductComponent } from './product/product.component';
+import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
+import { CreateEditSupplyComponent } from './create-edit-supply/create-edit-supply.component';
+import { SupplyComponent } from './supply/supply.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'supplies/*',
-  //   redirectTo: 'cajas'
-  // },
   {
-    path: 'mainSuplies',
-    component: MainSupliesComponent
+    path: 'product',
+    component: ProductComponent,
   },
   {
-    path: 'damajuanas',
-    component: DamajuanasComponent
+    path: 'supply',
+    component: SupplyComponent,
   },
   {
-    path: 'createEdit',
-    component: CreateEditMainSupplyComponent
-  }
+    path: 'createEditProduct',
+    component: CreateEditProductComponent,
+  },
+  {
+    path: 'createEditSupply',
+    component: CreateEditSupplyComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SuppliesRoutingModule { }
+export class SuppliesRoutingModule {}
