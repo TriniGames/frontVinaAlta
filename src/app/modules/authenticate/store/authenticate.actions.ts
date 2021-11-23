@@ -1,7 +1,12 @@
-import { createAction, props } from '@ngrx/store';
 import { LoginInfo } from 'src/app/shared/models/authenticate/login-info.model';
 import { UserInformation } from 'src/app/shared/models/authenticate/user-information.model';
 
-export const login = createAction('[AUTH] Login', props<{ loginInfo: LoginInfo }>());
+export class SetUserInformation {
+  static readonly type = '[AUTHENTICATE] Save User Information ';
+  constructor(public userInformation: UserInformation) {}
+}
 
-export const storeUserInformation = createAction('[AUTH] Store User Information', props<{ userInformation: UserInformation }>());
+export class GetLogin {
+  static readonly type = '[AUTHENTICATE] Get Login';
+  constructor(public loginInfo: LoginInfo) {}
+}

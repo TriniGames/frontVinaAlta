@@ -7,10 +7,19 @@
             <div class="input-group">
                 <label for="email">Email</label>
                 <input formControlName="email" id="email" />
+                <small class="text-danger" *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched && !loginForm.get('email').value">
+                    El campo es requerido.
+                </small>
+                <small class="text-danger" *ngIf="loginForm.get('email').hasError('pattern')">
+       El formato tiene que ser un email valido.
+    </small>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
                 <input formControlName="password" id="password" type="password" />
+                <small class="text-danger" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+        El campo es requerido.
+    </small>
             </div>
             <div class="buttons">
                 <button class="login-button" [ngClass]="{'disabled': loginForm.invalid}" type="submit">Login</button>

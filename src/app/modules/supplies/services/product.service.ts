@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -21,6 +22,28 @@ export class ProductService {
 
   getProducts() {
     return this.http.get<any>(this.productUrl, {
+      headers: this.headers,
+    });
+  }
+
+  getProduct(id: string) {
+    return this.http
+      .get<any>(`${this.productUrl}byId/${id}`, {
+        headers: this.headers,
+      })
+      .pipe(map((response) => response));
+  }
+
+  getPartialProducts() {
+    return this.http
+      .get<any>(`${this.productUrl}/partial`, {
+        headers: this.headers,
+      })
+      .pipe(map((response) => response));
+  }
+
+  updateProduct(product: any) {
+    return this.http.put<any>(this.productUrl, product, {
       headers: this.headers,
     });
   }

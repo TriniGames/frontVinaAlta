@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,10 +17,18 @@ import { ProductComponent } from './product/product.component';
 import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
 import { CreateEditSupplyComponent } from './create-edit-supply/create-edit-supply.component';
 import { SupplyComponent } from './supply/supply.component';
+import { NgxsModule } from '@ngxs/store';
+import { SupplyState } from './store/supply.state';
 @NgModule({
-  declarations: [ProductComponent, CreateEditProductComponent, CreateEditSupplyComponent, SupplyComponent],
+  declarations: [
+    ProductComponent,
+    CreateEditProductComponent,
+    CreateEditSupplyComponent,
+    SupplyComponent,
+  ],
   imports: [
     CommonModule,
+    FormsModule,
     SuppliesRoutingModule,
     MatTableModule,
     MatFormFieldModule,
@@ -34,6 +42,7 @@ import { SupplyComponent } from './supply/supply.component';
     MatButtonModule,
     MatRadioModule,
     MatCheckboxModule,
+    NgxsModule.forFeature([SupplyState]),
   ],
 })
 export class SuppliesModule {}

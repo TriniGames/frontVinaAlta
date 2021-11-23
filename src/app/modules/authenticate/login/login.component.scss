@@ -6,7 +6,7 @@
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(45deg, $background-color, $background-color);
+    background-image: linear-gradient( 45deg, $background-color, $background-color);
     outline: 5px solid #a89068;
     outline-offset: -30px;
     .login-form {
@@ -78,4 +78,8 @@
             font-size: 14px;
         }
     }
+}
+
+.text-danger {
+    color: red;
 }

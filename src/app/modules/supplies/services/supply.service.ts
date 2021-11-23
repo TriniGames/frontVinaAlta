@@ -1,5 +1,6 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,7 +19,23 @@ export class SupplyService {
   }
 
   getSupplies() {
-    return this.http.get<any>(this.supplyUrl, {
+    return this.http
+      .get<any>(this.supplyUrl, {
+        headers: this.headers,
+      })
+      .pipe(map((response) => response));
+  }
+
+  getSupply(id: string) {
+    return this.http
+      .get<any>(`${this.supplyUrl}/${id}`, {
+        headers: this.headers,
+      })
+      .pipe(map((response) => response));
+  }
+
+  updateSupply(supply: any) {
+    return this.http.put<any>(this.supplyUrl, supply, {
       headers: this.headers,
     });
   }
