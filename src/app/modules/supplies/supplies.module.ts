@@ -19,6 +19,8 @@ import { CreateEditSupplyComponent } from './create-edit-supply/create-edit-supp
 import { SupplyComponent } from './supply/supply.component';
 import { NgxsModule } from '@ngxs/store';
 import { SupplyState } from './store/supply.state';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     ProductComponent,
@@ -42,7 +44,9 @@ import { SupplyState } from './store/supply.state';
     MatButtonModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatSortModule,
     NgxsModule.forFeature([SupplyState]),
+    MatProgressSpinnerModule,
   ],
 })
 export class SuppliesModule {}

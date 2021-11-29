@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -10,41 +9,30 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductService {
   private productUrl = `${environment.apiAuthUrl}/product/`;
-  private headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {}
 
-  createProduct(product: any) {
-    return this.http.post<any>(this.productUrl, product, {
-      headers: this.headers,
-    });
+  createProduct(product: any): Observable<any> {
+    return this.http.post<any>(this.productUrl, product);
   }
 
-  getProducts() {
-    return this.http.get<any>(this.productUrl, {
-      headers: this.headers,
-    });
+  getProducts(): Observable<any> {
+    return this.http.get<any>(this.productUrl);
   }
 
-  getProduct(id: string) {
+  getProduct(id: string): Observable<any> {
     return this.http
-      .get<any>(`${this.productUrl}byId/${id}`, {
-        headers: this.headers,
-      })
+      .get<any>(`${this.productUrl}byId/${id}`)
       .pipe(map((response) => response));
   }
 
-  getPartialProducts() {
+  getPartialProducts(): Observable<any> {
     return this.http
-      .get<any>(`${this.productUrl}/partial`, {
-        headers: this.headers,
-      })
+      .get<any>(`${this.productUrl}/partial`)
       .pipe(map((response) => response));
   }
 
-  updateProduct(product: any) {
-    return this.http.put<any>(this.productUrl, product, {
-      headers: this.headers,
-    });
+  updateProduct(product: any): Observable<any> {
+    return this.http.put<any>(this.productUrl, product);
   }
 }

@@ -1,5 +1,6 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -8,35 +9,24 @@ import { environment } from 'src/environments/environment';
 })
 export class SupplyService {
   private supplyUrl = `${environment.apiAuthUrl}/supply/`;
-  private headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {}
 
-  createSupply(supply: any) {
-    return this.http.post<any>(this.supplyUrl, supply, {
-      headers: this.headers,
-    });
+  createSupply(supply: any): Observable<any> {
+    return this.http.post<any>(this.supplyUrl, supply);
   }
 
-  getSupplies() {
+  getSupplies(): Observable<any> {
+    return this.http.get<any>(this.supplyUrl).pipe(map((response) => response));
+  }
+
+  getSupply(id: string): Observable<any> {
     return this.http
-      .get<any>(this.supplyUrl, {
-        headers: this.headers,
-      })
+      .get<any>(`${this.supplyUrl}/${id}`)
       .pipe(map((response) => response));
   }
 
-  getSupply(id: string) {
-    return this.http
-      .get<any>(`${this.supplyUrl}/${id}`, {
-        headers: this.headers,
-      })
-      .pipe(map((response) => response));
-  }
-
-  updateSupply(supply: any) {
-    return this.http.put<any>(this.supplyUrl, supply, {
-      headers: this.headers,
-    });
+  updateSupply(supply: any): Observable<any> {
+    return this.http.put<any>(this.supplyUrl, supply);
   }
 }

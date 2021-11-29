@@ -7,11 +7,11 @@ import { SupplyComponent } from './supply/supply.component';
 
 const routes: Routes = [
   {
-    path: 'product',
+    path: 'products',
     component: ProductComponent,
   },
   {
-    path: 'supply',
+    path: 'supplies',
     component: SupplyComponent,
   },
   {

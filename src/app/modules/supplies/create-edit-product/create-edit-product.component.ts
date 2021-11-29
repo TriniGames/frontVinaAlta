@@ -26,6 +26,7 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
   error = 'Invalido';
   buttonText = 'Guardar';
   supliesOptions: any[] = [];
+  supliesOptionsFiltered: any[] = [];
   productTypeOptions: any[] = [];
   helpClicked = false;
   SupliesForm: FormArray;
@@ -44,9 +45,19 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
     this.getSupplies();
     this.getProductType();
     this.getProduct();
+
+    this.controls('Type').valueChanges.subscribe((type) => {
+      this.changeSupplies(type);
+    });
+
+    this.controls('ShowAllSupplies').valueChanges.subscribe((showAll) => {
+      if (showAll) {
+        this.showAllSupplies();
+      }
+    });
   }
 
-  getProduct() {
+  getProduct(): void {
     this._route.queryParams.subscribe((params) => {
       if (params && params.id) {
         this._store.dispatch(new GetProduct(params.id)).subscribe(
@@ -61,7 +72,7 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
                     Id: productSelected._id,
                   });
 
-                  let supliesArray = this.formGroup.get(
+                  const supliesArray = this.formGroup.get(
                     'Supplies'
                   ) as FormArray;
 
@@ -85,7 +96,7 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
     });
   }
 
-  getProductType() {
+  getProductType(): void {
     this.productTypeOptions = [
       { _id: '1', Name: `Damajuana` },
       { _id: '2', Name: `Botella` },
@@ -93,11 +104,13 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
     ];
   }
 
-  getSupplies() {
+  getSupplies(): void {
     this._store.dispatch(new GetSupplies());
 
     this.supplies$.pipe(takeUntil(this.unsubscribe$)).subscribe((supplies) => {
-      if (!supplies) return;
+      if (!supplies) {
+        return;
+      }
 
       this.supliesOptions = supplies.map((supply) => {
         return {
@@ -105,10 +118,12 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
           Name: supply.IsPartial ? `${supply.Name} - Parcial` : supply.Name,
         };
       });
+
+      this.supliesOptionsFiltered = [...this.supliesOptions];
     });
   }
 
-  createForm() {
+  createForm(): void {
     this.formGroup = this._formBuilder.group({
       Id: [null],
       Name: [null, [Validators.required]],
@@ -123,14 +138,15 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
       Supplies: this._formBuilder.array([this.createNewSupply()]),
       PartialProduct: [false],
       Type: [null, [Validators.required]],
+      ShowAllSupplies: [false],
     });
   }
 
-  controls(controlName) {
+  controls(controlName): FormControl {
     return this.formGroup.get(controlName) as FormControl;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.formGroup.get('Id')?.value) {
       this._productService
         .updateProduct(this.formGroup.getRawValue())
@@ -151,17 +167,17 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
     }
   }
 
-  openHelp() {
+  openHelp(): void {
     this.helpClicked = !this.helpClicked;
   }
 
-  addSupply(supply: any = null) {
-    let supliesArray = this.formGroup.get('Supplies') as FormArray;
+  addSupply(supply: any = null): void {
+    const supliesArray = this.formGroup.get('Supplies') as FormArray;
     supliesArray.push(this.createNewSupply(supply));
   }
 
-  deleteSuply(index: number) {
-    let supliesArray = this.formGroup.get('Supplies') as FormArray;
+  deleteSuply(index: number): void {
+    const supliesArray = this.formGroup.get('Supplies') as FormArray;
     supliesArray.removeAt(index);
   }
 
@@ -169,6 +185,18 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
     return this._formBuilder.group({
       SingleSupply: [supply, Validators.required],
     });
+  }
+
+  changeSupplies(type: string): void {
+    if (!this.controls('ShowAllSupplies').value) {
+      this.supliesOptionsFiltered = this.supliesOptions.filter(
+        (p) => p.Type === type
+      );
+    }
+  }
+
+  showAllSupplies(): void {
+    this.supliesOptionsFiltered = this.supliesOptions;
   }
 
   ngOnDestroy(): void {

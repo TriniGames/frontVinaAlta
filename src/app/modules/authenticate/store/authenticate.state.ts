@@ -22,6 +22,11 @@ export class AuthenticateState {
   constructor(private authenticateService: AuthenticateService) {}
 
   @Selector()
+  static token(state: Authentication): string {
+    return state.userInformation.jwt;
+  }
+
+  @Selector()
   static selectUserInformation(state: Authentication) {
     return state.userInformation;
   }
@@ -40,7 +45,6 @@ export class AuthenticateState {
   getLogin(context: StateContext<Authentication>, action: GetLogin) {
     return this.authenticateService.login(action.loginInfo).pipe(
       tap((loginInfo) => {
-        console.log('aqui estoy');
         context.patchState({
           userInformation: loginInfo,
         });

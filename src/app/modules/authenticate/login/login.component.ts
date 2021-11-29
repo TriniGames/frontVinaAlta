@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
     this.userInfomation$.pipe(takeUntil(this.unsubscribe$)).subscribe((ui) => {
-      console.log({ ui });
       if (ui && ui.jwt) {
         this.router.navigate(['/main']);
       }

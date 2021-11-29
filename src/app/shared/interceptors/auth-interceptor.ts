@@ -1,41 +1,47 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpHeaders,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { exhaustMap, finalize, take } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { AuthenticateState } from 'src/app/modules/authenticate/store/authenticate.state';
+import { UserInformation } from '../models/authenticate/user-information.model';
 import { LoaderService } from '../services/loader-services';
-// import { authorizationType } from '../constants';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  userInformation: UserInformation;
 
-    constructor(
-        private loaderService: LoaderService,
-        private store: Store
-    ) { }
+  constructor(private loaderService: LoaderService, private store: Store) {}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const token = this.store.selectSnapshot(AuthenticateState.token);
 
-        // return this.store.select(selectUserInformation)
-        //     .pipe(
-        //         take(1),
-        //         exhaustMap((userInformation) => {
-        const spinnerSubscription: Subscription = this.loaderService.spinner$.subscribe();
-        //             if (userInformation) {
-        //                 // const authToken = `${authorizationType} ${userInformation.Token}`;
+    // const spinnerSubscription: Subscription =
+    //   this.loaderService.spinner$.subscribe();
 
-        //                 const authReq = req.clone({
-        //                     headers: new HttpHeaders().set('Content-Type', 'application/json')
-        //                 });
+    if (req.url.includes('user/login')) {
+      return next.handle(req).pipe(
+        finalize(() => {
+          // spinnerSubscription.unsubscribe();
+        })
+      );
+    } else {
+      const loginReq = req.clone({
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('authorization', token),
+      });
 
-        //                 return next.handle(authReq).pipe(finalize(() => spinnerSubscription.unsubscribe()));
-        //             } else {
-        const loginReq = req.clone({
-            headers: new HttpHeaders().set('Content-Type', 'application/json')
-        });
-        return next.handle(loginReq).pipe(finalize(() => spinnerSubscription.unsubscribe()));
-        //         }
-        //     })
-        // );
+      return next.handle(loginReq).pipe(finalize(() => {}));
     }
+  }
 }

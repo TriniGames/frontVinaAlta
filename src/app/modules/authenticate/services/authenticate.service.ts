@@ -1,5 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoginInfo } from 'src/app/shared/models/authenticate/login-info.model';
@@ -18,11 +17,10 @@ export class AuthenticateService {
   constructor(private http: HttpClient) {}
 
   login(loginInfo: LoginInfo): Observable<UserInformation> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const loginUrl = `${environment.apiAuthUrl}/${this.authenticateUrl}/login`;
 
     return this.http
-      .post<any>(loginUrl, loginInfo, { headers })
+      .post<any>(loginUrl, loginInfo)
       .pipe(map((userInformation: UserInformation) => userInformation));
   }
 

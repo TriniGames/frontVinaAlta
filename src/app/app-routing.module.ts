@@ -10,20 +10,32 @@ const routes: Routes = [
     children: [
       {
         path: 'supplies',
-        loadChildren: () => import('./modules/supplies/supplies.module').then(mod => mod.SuppliesModule)
-      }
-    ]
+        loadChildren: () =>
+          import('./modules/supplies/supplies.module').then(
+            (mod) => mod.SuppliesModule
+          ),
+      },
+      {
+        path: 'production',
+        loadChildren: () =>
+          import('./modules/producction/producction.module').then(
+            (mod) => mod.ProducctionModule
+          ),
+      },
+    ],
   },
   {
     path: 'auth',
-    loadChildren: () => import('./modules/authenticate/authenticate.module').then(mod => mod.AuthenticateModule)
+    loadChildren: () =>
+      import('./modules/authenticate/authenticate.module').then(
+        (mod) => mod.AuthenticateModule
+      ),
   },
   { path: '**', redirectTo: 'auth' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}

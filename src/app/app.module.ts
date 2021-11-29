@@ -16,9 +16,12 @@ import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { NgxsModule } from '@ngxs/store';
 import { AuthenticateState } from './modules/authenticate/store/authenticate.state';
 import { environment } from 'src/environments/environment';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { OnlydigitsDirective } from './shared/directives/onlydigits.directive';
+import { MainProductionComponent } from './modules/producction/main-production/main-production.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, OnlydigitsDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
@@ -35,9 +38,10 @@ import { environment } from 'src/environments/environment';
     NgxsModule.forRoot([AuthenticateState], {
       developmentMode: !environment.production,
     }),
+    NgxsStoragePluginModule.forRoot(),
   ],
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
