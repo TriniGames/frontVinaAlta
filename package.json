@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot --prod --base-href frontend",
-    "heroku-postbuild": "ng build --prod --base-href frontend"
+    "postinstall": "ng build --aot --prod --output-path=frontend",
+    "heroku-postbuild": "ng build --prod --output-path=frontend"
   },
   "private": true,
   "dependencies": {
