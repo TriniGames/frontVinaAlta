@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiAuthUrl: 'http://localhost:4201/api'
+  apiAuthUrl: 'https://winer-api-rest.herokuapp.com/api',
 };
