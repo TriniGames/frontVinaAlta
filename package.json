@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ng build --aot --prod --output-path=frontend",
-    "heroku-postbuild": "ng build --prod --output-path=frontend"
+    "heroku-postbuild": "ng build --prod --output-path=frontend",
+    "startnode": "nodemon app.js"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +33,7 @@
     "@ngxs/storage-plugin": "^3.7.2",
     "@ngxs/store": "^3.7.2",
     "express": "^4.17.1",
+    "nodemon": "^2.0.15",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
